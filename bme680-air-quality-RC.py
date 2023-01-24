@@ -26,7 +26,11 @@ client.loop_start()
 
 ### bme680
 
-sensor = bme680.BME680()
+try:
+    sensor = bme680.BME680(bme680.I2C_ADDR_PRIMARY)
+except (RuntimeError, IOError):
+    sensor = bme680.BME680(bme680.I2C_ADDR_SECONDARY)
+
 
 # These oversampling settings can be tweaked to 
 # change the balance between accuracy and noise in
